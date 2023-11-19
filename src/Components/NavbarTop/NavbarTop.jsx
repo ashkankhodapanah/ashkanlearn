@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Dialog } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -7,6 +7,7 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import menusApi from "../../api/menusApi";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -21,7 +22,6 @@ export default function NavbarTop() {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const location = useLocation();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -32,6 +32,19 @@ export default function NavbarTop() {
     navigate("/"); // رفتن به صفحه اصلی پس از خروج
   };
 
+  useEffect(() => {
+    menusApi
+      .getAllMenus()
+      .then((response) => {
+        console.log("Menus:", response.data);
+        const titles = response.data.map((menu) => menu.title);
+        console.log("Titles:", titles);
+      })
+      .catch((error) => {
+        console.error("Error fetching menus:", error);
+      });
+  }, []);
+
   return (
     <>
       <header className="bg-yellow-600">
@@ -39,41 +52,46 @@ export default function NavbarTop() {
           className="mx-auto flex max-w-7xl items-center justify-between p-6 md:px-8"
           aria-label="Global"
         >
-          <div className="flex md:flex-1">
-            <Link to="/" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                alt=""
-              />
-            </Link>
-          </div>
-          <div className="flex md:hidden">
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(true)}
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white"
-            >
-              <span className="sr-only">Open main menu</span>
-              <Bars3Icon className="h-8 w-8" aria-hidden="true" />
-            </button>
-          </div>
-          <div className="hidden md:flex md:gap-x-12">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={`text-sm font-semibold leading-6 ${
-                  location.pathname === item.href
-                    ? "text-yellow-900"
-                    : "text-white"
-                }`}
-              >
-                {item.name}
+          <div className="flex ">
+            
+            <div className="flex md:flex-1">
+              <Link to="/" className="-m-1.5 p-1.5">
+                <span className="sr-only">Your Company</span>
+                <img
+                  className="h-8 w-auto"
+                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                  alt=""
+                />
               </Link>
-            ))}
+            </div>
+            <div className="flex md:hidden">
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(true)}
+                className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white"
+              >
+                <span className="sr-only">Open main menu</span>
+                <Bars3Icon className="h-8 w-8" aria-hidden="true" />
+              </button>
+            </div>
+            
+            <div className="hidden md:flex md:gap-x-8">
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`text-sm font-semibold leading-6 ${
+                    location.pathname === item.href
+                      ? "text-yellow-900"
+                      : "text-white"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
           </div>
+
           <div className="hidden md:flex md:flex-1 md:justify-end">
             {isLoggedIn ? (
               <>
@@ -85,8 +103,8 @@ export default function NavbarTop() {
                     سلام خوش آمدید
                   </p>
                   {userMenuOpen && (
-                    <div className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-yellow-600 ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                      <div className="py-1">
+                    <div className="origin-top-right absolute -right-8 mt-3 w-32 rounded-md shadow-lg bg-yellow-500 ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                      <div className="p-2 py-1">
                         <button
                           onClick={() => console.log("User clicked")}
                           className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-orange-600"
