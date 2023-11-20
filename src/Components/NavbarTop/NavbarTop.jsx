@@ -20,6 +20,7 @@ const navigation = [
 export default function NavbarTop() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [menuTopbar, setmenuTopbar] = useState([]);
   const location = useLocation();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const navigate = useNavigate();
@@ -33,16 +34,9 @@ export default function NavbarTop() {
   };
 
   useEffect(() => {
-    menusApi
-      .getAllMenus()
-      .then((response) => {
-        console.log("Menus:", response.data);
-        const titles = response.data.map((menu) => menu.title);
-        console.log("Titles:", titles);
-      })
-      .catch((error) => {
-        console.error("Error fetching menus:", error);
-      });
+    menusApi.getAllMenus().then((response) => {
+      setmenuTopbar(response.data);
+    });
   }, []);
 
   return (
@@ -53,7 +47,6 @@ export default function NavbarTop() {
           aria-label="Global"
         >
           <div className="flex ">
-            
             <div className="flex md:flex-1">
               <Link to="/" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
@@ -74,11 +67,21 @@ export default function NavbarTop() {
                 <Bars3Icon className="h-8 w-8" aria-hidden="true" />
               </button>
             </div>
-            
+
             <div className="hidden md:flex md:gap-x-8">
-              {navigation.map((item) => (
+              <Link
+                to="/"
+                className={`text-sm font-semibold leading-6 ${
+                  location.pathname==="/"
+                    ? "text-yellow-900"
+                    : "text-white"
+                }`}
+              >
+                صفحه اصلی
+              </Link>
+              {menuTopbar.map((item) => (
                 <Link
-                  key={item.name}
+                  key={item._id}
                   to={item.href}
                   className={`text-sm font-semibold leading-6 ${
                     location.pathname === item.href
@@ -86,7 +89,7 @@ export default function NavbarTop() {
                       : "text-white"
                   }`}
                 >
-                  {item.name}
+                  {item.title}
                 </Link>
               ))}
             </div>
