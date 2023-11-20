@@ -46,7 +46,7 @@ export default function NavbarTop() {
           className="mx-auto flex max-w-7xl items-center justify-between p-6 md:px-8"
           aria-label="Global"
         >
-          <div className="flex ">
+          <div className="flex items-center justify-between">
             <div className="flex md:flex-1">
               <Link to="/" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
@@ -72,9 +72,7 @@ export default function NavbarTop() {
               <Link
                 to="/"
                 className={`text-sm font-semibold leading-6 ${
-                  location.pathname==="/"
-                    ? "text-yellow-900"
-                    : "text-white"
+                  location.pathname === "/" ? "text-yellow-900" : "text-white"
                 }`}
               >
                 صفحه اصلی
@@ -112,13 +110,13 @@ export default function NavbarTop() {
                           onClick={() => console.log("User clicked")}
                           className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-orange-600"
                         >
-                          User
+                          منو کاربر
                         </button>
                         <button
                           onClick={handleLogout}
                           className="block w-full text-left px-4 py-2 text-sm text-yellow-900 hover:bg-orange-600"
                         >
-                          Log out
+                          خروج
                         </button>
                       </div>
                     </div>
@@ -164,10 +162,20 @@ export default function NavbarTop() {
             </div>
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/25">
-                <div className="space-y-2 py-6">
-                  {navigation.map((item) => (
+                <div className="space-y-2 py-2">
+                  <Link
+                    to="/"
+                    className={`-mx-3 block rounded-md px-3 py-2 text-base font-semibold leading-7 hover:bg-gray-800 ${
+                      location.pathname === "/"
+                        ? "text-yellow-900"
+                        : "text-white"
+                    }`}
+                  >
+                    صفحه اصلی
+                  </Link>
+                  {menuTopbar.map((item) => (
                     <Link
-                      key={item.name}
+                      key={item._id}
                       to={item.href}
                       className={`-mx-3 block rounded-md px-3 py-2 text-base font-semibold leading-7 hover:bg-gray-800 ${
                         location.pathname === item.href
@@ -175,8 +183,7 @@ export default function NavbarTop() {
                           : "text-white"
                       }`}
                     >
-                      {" "}
-                      {item.name}{" "}
+                      {item.title}
                     </Link>
                   ))}
                 </div>
@@ -188,7 +195,7 @@ export default function NavbarTop() {
                         to="/"
                         className="-mx-3 block rounded-md px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800"
                       >
-                        user
+                        کاربر
                       </Link>
 
                       <div>
@@ -196,7 +203,7 @@ export default function NavbarTop() {
                           to="/"
                           className="-mx-3 block rounded-md px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800"
                         >
-                          Log out
+                          خروج
                         </Link>
                       </div>
                     </div>
