@@ -5,17 +5,10 @@ import {
   XMarkIcon as XMarkIconOutline,
 } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import menusApi from "../../api/menusApi";
-
-const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Product", href: "/product" },
-  { name: "Features", href: "/features" },
-  { name: "Marketplace", href: "/marketplace" },
-  { name: "Company", href: "/company" },
-];
+import { logout } from "../../features/Auth/AuthSlice";
 
 export default function NavbarTop() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -23,15 +16,9 @@ export default function NavbarTop() {
   const [menuTopbar, setmenuTopbar] = useState([]);
   const location = useLocation();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const current = useSelector((state) => state.auth.current);
   const navigate = useNavigate();
-
-  const handleLogout = () => {
-    // اضافه کردن اکشن یا فرآیند خروج در AuthService
-    // به عنوان مثال:
-    // dispatch(logout());
-    // بر اساس فرضیه استفاده از logout از AuthService
-    navigate("/"); // رفتن به صفحه اصلی پس از خروج
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
     menusApi.getAllMenus().then((response) => {
@@ -39,15 +26,20 @@ export default function NavbarTop() {
     });
   }, []);
 
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+
   return (
     <>
       <header className="bg-yellow-600">
         <nav
-          className="mx-auto flex max-w-7xl items-center justify-between p-6 md:px-8"
+          className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
           aria-label="Global"
         >
-          <div className="flex items-center justify-between">
-            <div className="flex md:flex-1">
+          <div className="flex ">
+            <div className="hidden lg:flex lg:gap-x-8 ml-7">
               <Link to="/" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
                 <img
@@ -57,7 +49,7 @@ export default function NavbarTop() {
                 />
               </Link>
             </div>
-            <div className="flex md:hidden">
+            <div className="flex lg:hidden">
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(true)}
@@ -67,33 +59,40 @@ export default function NavbarTop() {
                 <Bars3Icon className="h-8 w-8" aria-hidden="true" />
               </button>
             </div>
-
-            <div className="hidden md:flex md:gap-x-8">
-              <Link
-                to="/"
-                className={`text-sm font-semibold leading-6 ${
-                  location.pathname === "/" ? "text-yellow-900" : "text-white"
-                }`}
-              >
-                صفحه اصلی
-              </Link>
-              {menuTopbar.map((item) => (
+            <ul className="hidden lg:flex lg:gap-x-10">
+              <li>
                 <Link
-                  key={item._id}
-                  to={item.href}
+                  to="/"
                   className={`text-sm font-semibold leading-6 ${
-                    location.pathname === item.href
-                      ? "text-yellow-900"
-                      : "text-white"
+                    location.pathname === "/" ? "text-yellow-900" : "text-white"
                   }`}
                 >
-                  {item.title}
+                  صفحه اصلی
                 </Link>
+              </li>
+              {menuTopbar.map((menu, index) => (
+                <li key={index} className="group relative">
+                  <Link
+                    to={`${menu.href}/1`}
+                    className="text-white group-hover:text-yellow-900 transition duration-300"
+                  >
+                    {menu.title}
+                    {menu.submenus.length !== 0 && (
+                      <ul className="absolute hidden space-y-2 bg-yellow-600 text-white  mt-2 p-2 rounded-lg group-hover:block z-50 w-40">
+                        {menu.submenus.map((submenu , index ) => (
+                          <li  key={index}>
+                            <Link to={submenu.href}>{submenu.title}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </Link>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
-          <div className="hidden md:flex md:flex-1 md:justify-end">
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             {isLoggedIn ? (
               <>
                 <div
@@ -101,24 +100,22 @@ export default function NavbarTop() {
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
                 >
                   <p className="text-xs font-semibold leading-6 text-white cursor-pointer">
-                    سلام خوش آمدید
+                    سلام {current.name} عزیز خوش امدید
                   </p>
                   {userMenuOpen && (
-                    <div className="origin-top-right absolute -right-8 mt-3 w-32 rounded-md shadow-lg bg-yellow-500 ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                      <div className="p-2 py-1">
-                        <button
-                          onClick={() => console.log("User clicked")}
-                          className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-orange-600"
-                        >
-                          منو کاربر
-                        </button>
-                        <button
-                          onClick={handleLogout}
-                          className="block w-full text-left px-4 py-2 text-sm text-yellow-900 hover:bg-orange-600"
-                        >
-                          خروج
-                        </button>
-                      </div>
+                    <div className="origin-top-right absolute -right-2 mt-3 w-44 rounded-md shadow-lg bg-yellow-600 ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                      <button
+                        onClick={() => console.log("User clicked")}
+                        className="block w-full  px-4 py-2 text-sm text-white hover:bg-orange-600"
+                      >
+                        <Link to="/profile">پروفایل {current.name}</Link>
+                      </button>
+                      <button
+                        onClick={handleLogout}
+                        className="block w-full  px-4 py-2 text-sm text-white hover:bg-orange-600"
+                      >
+                        خروج
+                      </button>
                     </div>
                   )}
                 </div>
@@ -136,7 +133,7 @@ export default function NavbarTop() {
 
         <Dialog
           as="div"
-          className="md:hidden"
+          className="lg:hidden"
           open={mobileMenuOpen}
           onClose={setMobileMenuOpen}
         >
@@ -191,20 +188,17 @@ export default function NavbarTop() {
                 <div>
                   {isLoggedIn ? (
                     <div>
-                      <Link
-                        to="/"
-                        className="-mx-3 block rounded-md px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800"
-                      >
-                        کاربر
-                      </Link>
+                      <button className="-mx-3 block rounded-md px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800">
+                        <Link to="/profile">پروفایل {current.name}</Link>
+                      </button>
 
                       <div>
-                        <Link
-                          to="/"
+                        <button
+                          onClick={handleLogout}
                           className="-mx-3 block rounded-md px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800"
                         >
                           خروج
-                        </Link>
+                        </button>
                       </div>
                     </div>
                   ) : (
