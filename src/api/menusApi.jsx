@@ -15,7 +15,7 @@ const menusApi = {
   },
   createMenu(data) {
     const url = `/menus/`;
-    const token = localStorage.getItem("userToken");
+    const token = localStorage.getItem("token");
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -24,7 +24,7 @@ const menusApi = {
   },
   deleteMenu(id) {
     const url = `/menus/${id}/`;
-    const token = localStorage.getItem("userToken");
+    const token = localStorage.getItem("token");
     const headers = {
       Authorization: `Bearer ${token}`,
     };

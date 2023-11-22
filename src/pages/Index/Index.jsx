@@ -8,7 +8,6 @@ export default function Index() {
   return (
     <>
       <NavbarTop />
-  
       <Footer />
     </>
   );
