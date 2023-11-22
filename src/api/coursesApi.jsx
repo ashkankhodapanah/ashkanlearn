@@ -16,8 +16,8 @@ const coursesApi = {
     return axiosClient.post(url, data, { headers });
   },
 
-  getCategoryCourses(data) {
-    const url = "/courses/category/frontend";
+  getCategoryCourses(data, categoryName) {
+    const url = `/courses/category/${categoryName}`;
     return axiosClient.get(url, { params: data });
   },
 
