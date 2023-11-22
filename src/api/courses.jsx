@@ -8,7 +8,7 @@ const coursesApi = {
 
   createCourse(data) {
     const url = `/courses/`;
-    const token = localStorage.getItem("userToken");
+    const token = localStorage.getItem("token");
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -23,7 +23,7 @@ const coursesApi = {
 
   deleteCourse(id) {
     const url = `/courses/${id}/`;
-    const token = localStorage.getItem("userToken");
+    const token = localStorage.getItem("token");
     const headers = {
       Authorization: `Bearer ${token}`,
     };
@@ -32,7 +32,7 @@ const coursesApi = {
 
   createSession(data, id) {
     const url = `/courses/${id}/sessions`;
-    const token = localStorage.getItem("userToken");
+    const token = localStorage.getItem("token");
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -47,7 +47,7 @@ const coursesApi = {
 
   removeSession(id) {
     const url = `/courses/sessions/${id}/`;
-    const token = localStorage.getItem("userToken");
+    const token = localStorage.getItem("token");
     const headers = {
       Authorization: `Bearer ${token}`,
     };
@@ -61,7 +61,7 @@ const coursesApi = {
 
   getSssionInfo(id) {
     const url = `/courses/npm/${id}`;
-    const token = localStorage.getItem("userToken");
+    const token = localStorage.getItem("token");
     const headers = {
       Authorization: `Bearer ${token}`,
     };
@@ -80,7 +80,7 @@ const coursesApi = {
 
   getSingleCourseData(data) {
     const url = "/courses/canvas";
-    const token = localStorage.getItem("userToken");
+    const token = localStorage.getItem("token");
     const headers = {
       Authorization: `Bearer ${token}`,
     };
@@ -89,7 +89,7 @@ const coursesApi = {
 
   registerToCourse(id, data) {
     const url = `/courses/${id}/register`;
-    const token = localStorage.getItem("userToken");
+    const token = localStorage.getItem("token");
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,

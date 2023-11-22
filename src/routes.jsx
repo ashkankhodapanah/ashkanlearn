@@ -7,6 +7,10 @@ const routes = [
   { path: "/", element: <Index /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
+  { path: "/category-info/:categoryName", element: <Category /> },
+  // { path: "/", element: < /> },
+  // { path: "/", element: < /> },
+
 
 ];
 

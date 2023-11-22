@@ -71,17 +71,19 @@ export default function NavbarTop() {
                 </Link>
               </li>
               {menuTopbar.map((menu, index) => (
-                <li key={index} className="group relative">
+                <li key={index} className="group relative hover:bg-yellow-900">
                   <Link
-                    to={`${menu.href}/1`}
-                    className="text-white group-hover:text-yellow-900 transition duration-300"
+                    to={`${menu.href}`}
+                    className="text-white group-hover:text-yellow-900 transition duration-300 "
                   >
                     {menu.title}
                     {menu.submenus.length !== 0 && (
                       <ul className="absolute hidden space-y-2 bg-yellow-600 text-white  mt-2 p-2 rounded-lg group-hover:block z-50 w-40">
                         {menu.submenus.map((submenu , index ) => (
                           <li  key={index}>
-                            <Link to={submenu.href}>{submenu.title}</Link>
+                            <Link to={submenu.href}
+                            className="hover:text-orange-900"
+                            >{submenu.title}</Link>
                           </li>
                         ))}
                       </ul>
