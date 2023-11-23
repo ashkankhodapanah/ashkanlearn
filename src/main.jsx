@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./app/store.jsx";
-
+import 'swiper/swiper-bundle.css';
 import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
 
