@@ -1,0 +1,15 @@
+/* Navigation Buttons */
+.swiper-button-prev,
+.swiper-button-next {
+  color: orange !important;
+}
+
+/* Pagination Bullets */
+.swiper-pagination-bullet {
+  background-color: rgba(255, 255, 255, 0.781) !important;
+}
+
+/* Active Pagination Bullet */
+.swiper-pagination-bullet-active {
+  background-color: orange !important;
+}

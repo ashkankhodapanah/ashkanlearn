@@ -35,7 +35,7 @@ export default function NavbarTop() {
     <>
       <header className="bg-yellow-600">
         <nav
-          className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+          className="mx-auto flex max-w-7xl items-center justify-between p-3 lg:px-8"
           aria-label="Global"
         >
           <div className="flex ">
@@ -71,19 +71,17 @@ export default function NavbarTop() {
                 </Link>
               </li>
               {menuTopbar.map((menu, index) => (
-                <li key={index} className="group relative hover:bg-yellow-900">
+                <li key={index} className="group relative hover:bg-orange-900">
                   <Link
                     to={`${menu.href}`}
-                    className="text-white group-hover:text-yellow-900 transition duration-300 "
+                    className="text-white transition duration-300 "
                   >
                     {menu.title}
                     {menu.submenus.length !== 0 && (
-                      <ul className="absolute hidden space-y-2 bg-yellow-600 text-white  mt-2 p-2 rounded-lg group-hover:block z-50 w-40">
-                        {menu.submenus.map((submenu , index ) => (
-                          <li  key={index}>
-                            <Link to={submenu.href}
-                            className="hover:text-orange-900"
-                            >{submenu.title}</Link>
+                      <ul className="absolute hidden space-y-2 bg-yellow-600 text-white  mt-2 p-2 rounded-lg group-hover:block  z-50 w-48">
+                        {menu.submenus.map((submenu, index) => (
+                          <li key={index} className="hover:bg-orange-900 ">
+                            <Link to={submenu.href}>{submenu.title}</Link>
                           </li>
                         ))}
                       </ul>
