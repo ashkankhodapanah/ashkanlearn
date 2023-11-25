@@ -22,18 +22,17 @@ export default function NavbarTop() {
 
   useEffect(() => {
     menusApi.getAllMenus().then((response) => {
-      setmenuTopbar(response.data);
-    });
-  }, []);
+      setmenuTopbar(response.data);    });  }, []);
 
-  const handleLogout = () => {
+  const handleLogout = (event) => {
+    event.preventDefault();
     dispatch(logout());
     navigate("/");
   };
 
   return (
     <>
-      <header className="bg-yellow-600">
+      <header className="bg-yellow-600 px-4">
         <nav
           className="mx-auto flex max-w-7xl items-center justify-between p-3 lg:px-8"
           aria-label="Global"
