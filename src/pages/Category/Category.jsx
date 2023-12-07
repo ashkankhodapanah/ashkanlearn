@@ -6,7 +6,6 @@ import coursesApi from "../../api/coursesApi";
 
 export default function Category() {
   const { categoryName } = useParams();
-console.log(categoryName);
   // useEffect(() => {
   //   // اصلاح: ارسال پارامتر categoryName به تابع getCategoryCourses
   //   coursesApi.getCategoryCourses({}, categoryName).then((response) => {

@@ -59,12 +59,13 @@ export default function NavbarTop() {
               </button>
             </div>
             <ul className="hidden lg:flex lg:gap-x-10">
-              <li>
+              <li className=" hover:bg-orange-900">
                 <Link
                   to="/"
-                  className={`text-sm font-semibold leading-6 ${
-                    location.pathname === "/" ? "text-yellow-900" : "text-white"
-                  }`}
+                  className="text-sm font-semibold leading-6 text-white  "
+                  // className={`text-sm font-semibold leading-6 ${
+                  //   location.pathname === "/" ? "text-yellow-900" : "text-white"
+                  // }`}
                 >
                   صفحه اصلی
                 </Link>

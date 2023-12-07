@@ -11,12 +11,12 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "./Slider.css"
 
-export default function Slider({ Data }) {
+export default function Slider({ Data}) {
   return (
     <Swiper
       className="w-full h-96 bg-green-500 "
       modules={[Navigation, Pagination, Scrollbar, A11y]}
-      spaceBetween={1}
+      spaceBetween={ 20}
       slidesPerView={1}
       navigation
       pagination={{ clickable: true }}
@@ -25,8 +25,8 @@ export default function Slider({ Data }) {
       {Data.slice(0, 4).map((data) => (
         <SwiperSlide key={data._id}>
           <div className="text-orange-500">
-            <Link to="/">
-              <img  className="object-cover  w-full h-full "
+            <Link to={`/category-info/${data.categoryID.name}`}>
+              <img  className="object-cover  w-full h-96 "
                 src={`http://localhost:4000/courses/covers/${data.cover}`}
               />
             </Link>

@@ -9,11 +9,8 @@ export default function Index() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await coursesApi.getAllCourses();
-      setData(response.data);
-    };
-
-    fetchData();
-  }, []);
+      setData(response.data);    };
+    fetchData();  }, []);
 
   return (
     <>
