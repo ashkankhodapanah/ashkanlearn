@@ -18,6 +18,7 @@ const coursesApi = {
 
   getCategoryCourses(data, categoryName) {
     const url = `/courses/category/${categoryName}`;
+    console.log(url);
     return axiosClient.get(url, { params: data });
   },
 
@@ -78,8 +79,8 @@ const coursesApi = {
     return axiosClient.get(url, { params: data });
   },
 
-  getSingleCourseData(data) {
-    const url = "/courses/canvas";
+  getSingleCourseData(data, courseName) {
+    const url = `/courses/${courseName}`;
     const token = localStorage.getItem("token");
     const headers = {
       Authorization: `Bearer ${token}`,

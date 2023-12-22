@@ -62,16 +62,16 @@ export default function NavbarTop() {
               <li className=" hover:bg-orange-900">
                 <Link
                   to="/"
-                  className="text-sm font-semibold leading-6 text-white  "
-                  // className={`text-sm font-semibold leading-6 ${
-                  //   location.pathname === "/" ? "text-yellow-900" : "text-white"
-                  // }`}
+
+                  className={`text-sm font-semibold leading-6 ${
+                    location.pathname === "/" ? "text-yellow-900" : "text-white"
+                  }`}
                 >
                   صفحه اصلی
                 </Link>
               </li>
-              {menuTopbar.map((menu, index) => (
-                <li key={index} className="group relative hover:bg-orange-900">
+              {menuTopbar.map((menu) => (
+                <li key={menu._id} className="group relative hover:bg-orange-900">
                   <Link
                     to={`${menu.href}`}
                     className="text-white transition duration-300 "
@@ -79,8 +79,10 @@ export default function NavbarTop() {
                     {menu.title}
                     {menu.submenus.length !== 0 && (
                       <ul className="absolute hidden space-y-2 bg-yellow-600 text-white  mt-2 p-2 rounded-lg group-hover:block  z-50 w-48">
-                        {menu.submenus.map((submenu, index) => (
-                          <li key={index} className="hover:bg-orange-900 ">
+                        {menu.submenus.map((submenu) => (
+                          <li key={submenu._id} className="hover:bg-orange-900 "
+                          // onClick={() => handleSubMenuClick(submenu._id)}
+                          >
                             <Link to={submenu.href}>{submenu.title}</Link>
                           </li>
                         ))}
