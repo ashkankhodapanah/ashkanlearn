@@ -3,6 +3,7 @@ import NavbarTop from "../../Components/NavbarTop/NavbarTop";
 import Footer from "../../Components/Footer/Footer";
 import Slider from "../../Components/Slider/Slider";
 import coursesApi from "../../api/coursesApi";
+import Test from "../../Components/Test/Test";
 
 export default function Index() {
   const [Data, setData] = useState([]);
@@ -16,6 +17,7 @@ export default function Index() {
     <>
       <NavbarTop />
       <Slider  Data={Data} />
+      <Test />
       <Footer />
     </>
   );
