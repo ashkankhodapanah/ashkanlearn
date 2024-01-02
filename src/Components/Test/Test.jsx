@@ -1,8 +1,18 @@
-import React from 'react'
 
-export default function Test() {
+
+
+export default function Example() {
   return (
-    <div>Test</div>
+    <header className="relative bg-white">
+      <nav aria-label="Top" className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="relative border-b border-gray-200 px-4 pb-14 sm:static sm:px-0 sm:pb-0">
+          <div className="flex h-16 items-center justify-between">
+  s
+        
+            </div>
+          
+        </div>
+      </nav>
+    </header>
   )
 }
-

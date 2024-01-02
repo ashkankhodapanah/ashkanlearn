@@ -5,10 +5,12 @@ import {
   XMarkIcon as XMarkIconOutline,
 } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import menusApi from "../../api/menusApi";
 import { logout } from "../../features/Auth/AuthSlice";
+
 
 export default function NavbarTop() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -22,7 +24,9 @@ export default function NavbarTop() {
 
   useEffect(() => {
     menusApi.getAllMenus().then((response) => {
-      setmenuTopbar(response.data);    });  }, []);
+      setmenuTopbar(response.data);
+    });
+  }, []);
 
   const handleLogout = (event) => {
     event.preventDefault();
@@ -62,7 +66,6 @@ export default function NavbarTop() {
               <li className=" hover:bg-orange-900">
                 <Link
                   to="/"
-
                   className={`text-sm font-semibold leading-6 ${
                     location.pathname === "/" ? "text-yellow-900" : "text-white"
                   }`}
@@ -71,7 +74,10 @@ export default function NavbarTop() {
                 </Link>
               </li>
               {menuTopbar.map((menu) => (
-                <li key={menu._id} className="group relative hover:bg-orange-900">
+                <li
+                  key={menu._id}
+                  className="group relative hover:bg-orange-900"
+                >
                   <Link
                     to={`${menu.href}`}
                     className="text-white transition duration-300 "
@@ -80,8 +86,10 @@ export default function NavbarTop() {
                     {menu.submenus.length !== 0 && (
                       <ul className="absolute hidden space-y-2 bg-yellow-600 text-white  mt-2 p-2 rounded-lg group-hover:block  z-50 w-48">
                         {menu.submenus.map((submenu) => (
-                          <li key={submenu._id} className="hover:bg-orange-900 "
-                          // onClick={() => handleSubMenuClick(submenu._id)}
+                          <li
+                            key={submenu._id}
+                            className="hover:bg-orange-900 "
+                            // onClick={() => handleSubMenuClick(submenu._id)}
                           >
                             <Link to={submenu.href}>{submenu.title}</Link>
                           </li>
@@ -96,41 +104,42 @@ export default function NavbarTop() {
 
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             {isLoggedIn ? (
-              <>
-                <div
-                  className="relative inline-block text-left"
-                  onClick={() => setUserMenuOpen(!userMenuOpen)}
-                >
-                  <p className="text-xs font-semibold leading-6 text-white cursor-pointer">
-                    سلام {current.name} عزیز خوش امدید
-                  </p>
-                  {userMenuOpen && (
-                    <div className="origin-top-right absolute -right-2 mt-3 w-44 rounded-md shadow-lg bg-yellow-600 ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                      <button
-                        onClick={() => console.log("User clicked")}
-                        className="block w-full  px-4 py-2 text-sm text-white hover:bg-orange-600"
-                      >
-                        <Link to="/profile">پروفایل {current.name}</Link>
-                      </button>
-                      <button
-                        onClick={handleLogout}
-                        className="block w-full  px-4 py-2 text-sm text-white hover:bg-orange-600"
-                      >
-                        خروج
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </>
-            ) : (
-              <Link
-                to="/login"
-                className="text-sm font-semibold leading-6 text-white"
+              <div
+                className="relative inline-block text-left"
+                onClick={() => setUserMenuOpen(!userMenuOpen)}
               >
-                Log in <span aria-hidden="true">&rarr;</span>
-              </Link>
+                <p className="text-xs font-semibold leading-6 text-white cursor-pointer">
+                  سلام {current.name} 
+                </p>
+                {userMenuOpen && (
+                  <div className="origin-top-right absolute -right-2 mt-3 w-44 rounded-md shadow-lg bg-yellow-600 ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                    <button
+                      onClick={() => console.log("User clicked")}
+                      className="block w-full  px-4 py-2 text-sm text-white hover:bg-orange-900"
+                    >
+                      <Link to="/profile">پروفایل {current.name}</Link>
+                    </button>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full  px-4 py-2 text-sm text-white hover:bg-orange-900"
+                    >
+                      خروج
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="text-sm font-semibold leading-6 text-white"
+                >
+                  Log in <span aria-hidden="true">&rarr;</span>
+                </Link>
+              </>
             )}
           </div>
+
         </nav>
 
         <Dialog
